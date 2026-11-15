@@ -1,12 +1,24 @@
-import random
+import discord
+from discord.ext import commands
 
-caracteres = "+-/*!&$#?=@abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+intents = discord.Intents.default()
+intents.message_content = True
 
-longitud = int(input("Introduce la longitud de la clave: "))
-password = ""
+bot = commands.Bot(command_prefix='/', intents=intents)
 
-# Generar la contraseña con un bucle for
-for i in range(longitud):   
-    password += random.choice(caracteres)
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
 
-print(password)
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Hola, soy un bot {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+@bot.command()
+async def kodland(ctx):
+    for i in range(5):
+        await ctx.send("Kodland es una escuela de programación")
